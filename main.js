@@ -15,7 +15,7 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true
     },
-    icon: "../electron-quick-start-master/Icon.icns"
+    icon: "../Icon.icns"
   })
 
   // and load the index.html of the app.
