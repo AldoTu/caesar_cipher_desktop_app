@@ -51,7 +51,7 @@
         const Chart = require("chart.js");
         const normal_freq = [12.45849886492622, 1.6221701980073149, 4.093793353512423, 4.879674296884853, 13.361000756715855, 0.6861284525160802, 1.094439714970362, 1.0371736662883089, 5.70516458569807, 0.5147244293101274, 0.052457750031529825, 5.67000882835162, 2.8877380501954852, 7.187184701727835, 0.000000001, 8.789451696304704, 2.705692710303947, 1.1394879556060034, 6.799367826964309, 7.786763778534493, 4.268626245428175, 4.624992117543196, 1.0711076428301172, 0.04264409131037962, 0.15729442552654813, 0.9154685332324379, 0.4489453272796065];
         const labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-        fs.readFile('../electron-quick-start-master/caesar_cipher/decifrado.txt', "utf8", function (err, data) {
+        fs.readFile('../caesar_cipher/decifrado.txt', "utf8", function (err, data) {
           if (err) throw err;
           $("#texto-final").first().text(data.split(";")[0]);
           var ctx = document.getElementById('myChart').getContext('2d');
@@ -280,11 +280,11 @@
     $("#submit-btn").click(function(){
       const fs = require('fs');
       var data = document.getElementById('text1').value
-      fs.writeFile('../electron-quick-start-master/caesar_cipher/cifrado.txt', data, function (err) {
+      fs.writeFile('../caesar_cipher/cifrado.txt', data, function (err) {
         if (err) throw err;
       });
       var child = require('child_process').execFile;
-      var executablePath = "../electron-quick-start-master/caesar_cipher/caesar_cipher.exe";
+      var executablePath = "../caesar_cipher/caesar_cipher.exe";
       child(executablePath, function(err, data) {
         if(err){
           console.error(err);
