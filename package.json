@@ -1,20 +1,20 @@
 {
-  "name": "electron-quick-start",
+  "name": "caesar-cipher-desktop-app",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Caesar Cipher Desktop App",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/AldoTu/caesar_cipher_desktop_app",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "caesar",
+    "cipher",
+    "app",
+    "statistics",
+    "desktop"
   ],
-  "author": "GitHub",
+  "author": "AldoTu",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^7.0.0"
