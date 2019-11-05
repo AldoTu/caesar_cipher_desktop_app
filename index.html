@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Caesar Cipher Decoder App</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="my-4">Caesar Cipher
+        <small>Equipo 4</small>
+      </h1>
+    <div class="row">
+      <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Texto a decifrar</label>
+            <input type="text" class="form-control" id="text1" aria-describedby="texto" placeholder="">
+            <small id="emailHelp" class="form-text text-muted">El texto debe de estar en Español.</small>
+          </div>
+          <button type="submit" class="btn btn-primary" id="submit-btn">Decifrar</button>
+        <br />
+        <h3 class="my-3">Resultado</h3>
+        <h4 id="texto-final">Texto decifrado es... </h4>
+      </div>
+      <div class="col-md-8">
+        <canvas id="myChart" width="750" height="200"></canvas>
+        <canvas id="myChart1" width="750" height="200"></canvas>
+        <canvas id="myChart2" width="750" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>if (window.module) module = window.module;</script>
+    <script type="text/javascript">
+      function str2arr(string){
+        var cleanstr = string.replace("[", "").replace("]", "").replace(" ", "");
+        var arr = cleanstr.split(",");
+        var arrfinal = [];
+        var i;
+        for (i = 0; i < arr.length; i++) {
+          arrfinal.push(parseInt(arr[i]));
+        }
+        return arrfinal;
+      }
+    </script>
+    <script type="text/javascript">
+      function myresponse(){
+        const fs = require('fs');
+        const Chart = require("chart.js");
+        const normal_freq = [12.45849886492622, 1.6221701980073149, 4.093793353512423, 4.879674296884853, 13.361000756715855, 0.6861284525160802, 1.094439714970362, 1.0371736662883089, 5.70516458569807, 0.5147244293101274, 0.052457750031529825, 5.67000882835162, 2.8877380501954852, 7.187184701727835, 0.000000001, 8.789451696304704, 2.705692710303947, 1.1394879556060034, 6.799367826964309, 7.786763778534493, 4.268626245428175, 4.624992117543196, 1.0711076428301172, 0.04264409131037962, 0.15729442552654813, 0.9154685332324379, 0.4489453272796065];
+        const labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        fs.readFile('../electron-quick-start-master/caesar_cipher/decifrado.txt', "utf8", function (err, data) {
+          if (err) throw err;
+          $("#texto-final").first().text(data.split(";")[0]);
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var ctx1 = document.getElementById('myChart1').getContext('2d');
+          var ctx2 = document.getElementById('myChart2').getContext('2d');
+          if (myChart) {
+            myChart.destroy();
+          }
+          if (myChart1) {
+            myChart1.destroy();
+          }
+          if (myChart2) {
+            myChart2.destroy();
+          }
+          var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [{
+                label: 'Nuestra Tabla de Frecuencias',
+                data: normal_freq,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(232, 126, 81, 0.2)',
+                    'rgba(255, 162, 89, 0.2)',
+                    'rgba(70, 77, 255, 0.2)',
+                    'rgba(255, 250, 89, 0.2)',
+                    'rgba(100, 190, 84, 0.2)',
+                    'rgba(255, 72, 19, 0.2)',
+                    'rgba(213, 83, 28, 0.2)',
+                    'rgba(82, 176, 92, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(232, 126, 81, 0.2)',
+                    'rgba(255, 162, 89, 0.2)',
+                    'rgba(70, 77, 255, 0.2)',
+                    'rgba(255, 250, 89, 0.2)',
+                    'rgba(100, 190, 84, 0.2)',
+                    'rgba(255, 72, 19, 0.2)',
+                    'rgba(213, 83, 28, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(232, 126, 81, 1)',
+                    'rgba(255, 162, 89, 1)',
+                    'rgba(70, 77, 255, 1)',
+                    'rgba(255, 250, 89, 1)',
+                    'rgba(100, 190, 84, 1)',
+                    'rgba(255, 72, 19, 1)',
+                    'rgba(213, 83, 28, 1)',
+                    'rgba(82, 176, 92, 0.2)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(232, 126, 81, 1)',
+                    'rgba(255, 162, 89, 1)',
+                    'rgba(70, 77, 255, 1)',
+                    'rgba(255, 250, 89, 1)',
+                    'rgba(100, 190, 84, 1)',
+                    'rgba(255, 72, 19, 1)',
+                    'rgba(213, 83, 28, 1)'
+                  ],
+                  borderWidth: 1
+                }]
+              }
+          });
+          var myChart1 = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                  labels: labels,
+                  datasets: [{
+                    label: 'Frecuencias Encontradas',
+                    data: str2arr(data.split(";")[1]),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(232, 126, 81, 0.2)',
+                        'rgba(255, 162, 89, 0.2)',
+                        'rgba(70, 77, 255, 0.2)',
+                        'rgba(255, 250, 89, 0.2)',
+                        'rgba(100, 190, 84, 0.2)',
+                        'rgba(255, 72, 19, 0.2)',
+                        'rgba(213, 83, 28, 0.2)',
+                        'rgba(82, 176, 92, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(232, 126, 81, 0.2)',
+                        'rgba(255, 162, 89, 0.2)',
+                        'rgba(70, 77, 255, 0.2)',
+                        'rgba(255, 250, 89, 0.2)',
+                        'rgba(100, 190, 84, 0.2)',
+                        'rgba(255, 72, 19, 0.2)',
+                        'rgba(213, 83, 28, 0.2)'
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(232, 126, 81, 1)',
+                        'rgba(255, 162, 89, 1)',
+                        'rgba(70, 77, 255, 1)',
+                        'rgba(255, 250, 89, 1)',
+                        'rgba(100, 190, 84, 1)',
+                        'rgba(255, 72, 19, 1)',
+                        'rgba(213, 83, 28, 1)',
+                        'rgba(82, 176, 92, 0.2)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(232, 126, 81, 1)',
+                        'rgba(255, 162, 89, 1)',
+                        'rgba(70, 77, 255, 1)',
+                        'rgba(255, 250, 89, 1)',
+                        'rgba(100, 190, 84, 1)',
+                        'rgba(255, 72, 19, 1)',
+                        'rgba(213, 83, 28, 1)'
+                      ],
+                      borderWidth: 1
+                    }]
+                  }
+          });
+          var myChart2 = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                      labels: labels,
+                      datasets: [{
+                        label: 'Chi2',
+                        data: str2arr(data.split(";")[2]),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(232, 126, 81, 0.2)',
+                            'rgba(255, 162, 89, 0.2)',
+                            'rgba(70, 77, 255, 0.2)',
+                            'rgba(255, 250, 89, 0.2)',
+                            'rgba(100, 190, 84, 0.2)',
+                            'rgba(255, 72, 19, 0.2)',
+                            'rgba(213, 83, 28, 0.2)',
+                            'rgba(82, 176, 92, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(232, 126, 81, 0.2)',
+                            'rgba(255, 162, 89, 0.2)',
+                            'rgba(70, 77, 255, 0.2)',
+                            'rgba(255, 250, 89, 0.2)',
+                            'rgba(100, 190, 84, 0.2)',
+                            'rgba(255, 72, 19, 0.2)',
+                            'rgba(213, 83, 28, 0.2)'
+                          ],
+                          borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(232, 126, 81, 1)',
+                            'rgba(255, 162, 89, 1)',
+                            'rgba(70, 77, 255, 1)',
+                            'rgba(255, 250, 89, 1)',
+                            'rgba(100, 190, 84, 1)',
+                            'rgba(255, 72, 19, 1)',
+                            'rgba(213, 83, 28, 1)',
+                            'rgba(82, 176, 92, 0.2)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(232, 126, 81, 1)',
+                            'rgba(255, 162, 89, 1)',
+                            'rgba(70, 77, 255, 1)',
+                            'rgba(255, 250, 89, 1)',
+                            'rgba(100, 190, 84, 1)',
+                            'rgba(255, 72, 19, 1)',
+                            'rgba(213, 83, 28, 1)'
+                          ],
+                          borderWidth: 1
+              }]
+            }
+          });
+        });
+      }
+    </script>
+    <script type="text/javascript">
+    $("#submit-btn").click(function(){
+      const fs = require('fs');
+      var data = document.getElementById('text1').value
+      fs.writeFile('../electron-quick-start-master/caesar_cipher/cifrado.txt', data, function (err) {
+        if (err) throw err;
+      });
+      var child = require('child_process').execFile;
+      var executablePath = "../electron-quick-start-master/caesar_cipher/caesar_cipher.exe";
+      child(executablePath, function(err, data) {
+        if(err){
+          console.error(err);
+          return;
+        }
+      });
+      setTimeout(myresponse, 0400);
+    });
+    </script>
+  </body>
+</html>
